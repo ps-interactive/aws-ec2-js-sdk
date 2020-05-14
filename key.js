@@ -7,6 +7,6 @@ const ec2 = new AWS.EC2();
 const params = { KeyName: 'KEY_PAIR_NAME' };
 
 ec2.createKeyPair(params, (err, data)  => {
-  if (err) { console.log("Error", err); }
+  if (err) { console.log('Error', err); }
   else { console.log(JSON.stringify(data)); }
 });
