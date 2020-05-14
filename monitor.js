@@ -10,36 +10,36 @@ const params = {
   DryRun: true
 };
 
-if (process.argv[2].toUpperCase() === "START") {
-  // Call EC2 to start the selected instances
-  ec2.startInstances(params, function(err, data) {
+if (process.argv[2].toUpperCase() === "ON") {
+  ec2.monitorInstances(params, (err, data) => {
     if (err && err.code === 'DryRunOperation') {
       params.DryRun = false;
-      ec2.startInstances(params, function(err, data) {
+      ec2.monitorInstances(params, (err, data) => {
           if (err) {
             console.log("Error", err);
           } else if (data) {
-            console.log("Success", data.StartingInstances);
+            console.log("Success", data.InstanceMonitorings);
           }
       });
     } else {
-      console.log("You don't have permission to start instances.");
+      console.log("You don't have permission to change instance monitoring.");
     }
   });
-} else if (process.argv[2].toUpperCase() === "STOP") {
-  // Call EC2 to stop the selected instances
-  ec2.stopInstances(params, function(err, data) {
+} else if (process.argv[2].toUpperCase() === "OFF") {
+  ec2.unmonitorInstances(params, (err, data) => {
     if (err && err.code === 'DryRunOperation') {
       params.DryRun = false;
-      ec2.stopInstances(params, function(err, data) {
+      ec2.unmonitorInstances(params, (err, data) => {
           if (err) {
             console.log("Error", err);
           } else if (data) {
-            console.log("Success", data.StoppingInstances);
+            console.log("Success", data.InstanceMonitorings);
           }
       });
     } else {
-      console.log("You don't have permission to stop instances");
+      console.log("You don't have permission to change instance monitoring.");
     }
   });
 }
+
+

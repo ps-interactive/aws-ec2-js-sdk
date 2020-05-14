@@ -10,19 +10,19 @@ const params = {
   InstanceType: 't2.nano',
   MinCount: 1,
   MaxCount: 1,
-  SubnetId: "subnet-0720e3c74ef10ff97"
+  SubnetId: ""
 };
 
-const instancePromise = new AWS.EC2().runInstances(params, (err, data) => {
+const instancePromise = ec2.runInstances(params, (err, data) => {
   if (err) {
     console.error(err, err.stack);
   } else {
     const instanceId = data.Instances[0].InstanceId;
     const tagParams = {
       Resources: [instanceId],
-      Tags: [{ Key: 'Name', Value: 'SDK Sample' }]
+      Tags: [{ Key: 'Name', Value: 'ec2-js-sdk-instance' }]
     };
-    const tagPromise = new AWS.EC2().createTags(tagParams, (err, data) => {
+    const tagPromise = ec2.createTags(tagParams, (err, data) => {
       if (err) { console.error(err, err.stack); }
       else { console.log("Instance tagged"); }
     });
