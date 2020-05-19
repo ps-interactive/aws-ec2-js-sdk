@@ -6,52 +6,32 @@ AWS.config.apiVersions = { ec2: '2016-11-15' };
 const ec2 = new AWS.EC2();
 
 const params = {
-  InstanceIds: [process.argv[3]],
-  DryRun: true
+  InstanceIds: [process.argv[3]]
 };
 
-if (process.argv[2].toUpperCase() === 'START') {
-  // Call EC2 to start the selected instances
-  ec2.startInstances(params, function(err, data) {
-    if (err && err.code === 'DryRunOperation') {
-      params.DryRun = false;
-      ec2.startInstances(params, function(err, data) {
-          if (err) {
-            console.log('Error', err);
-          } else if (data) {
-            console.log('Success', data.StartingInstances);
-          }
-      });
-    } else {
-      console.log('You don\'t have permission to start instances.');
-    }
-  });
-} else if (process.argv[2].toUpperCase() === 'STOP') {
-  // Call EC2 to stop the selected instances
-  ec2.stopInstances(params, function(err, data) {
-    if (err && err.code === 'DryRunOperation') {
-      params.DryRun = false;
-      ec2.stopInstances(params, function(err, data) {
-          if (err) {
-            console.log('Error', err);
-          } else if (data) {
-            console.log('Success', data.StoppingInstances);
-          }
-      });
-    } else {
-      console.log('You don\'t have permission to stop instances');
-    }
-  });
-} else if () {
-  ec2.rebootInstances(params, (err, data) => {
-  if (err && err.code === 'DryRunOperation') {
-    params.DryRun = false;
-    ec2.rebootInstances(params, (err, data) => {
-        if (err) { console.log('Error', err); }
-        else if (data) { console.log('Success', data); }
-    });
-  } else {
-    console.log('You don\'t have permission to reboot instances.');
-  }
-});
+const command = process.argv[2].toUpperCase()
+
+const callback = (err, data) => {
+  if (err) { console.log('Error', err); }
+  else if (data) { console.log('Success', JSON.stringify(data)); }
+}
+
+switch (command) {
+  case 'START':
+    ec2.startInstances(params, callback);
+    break;
+  case 'STOP':
+    ec2.stopInstances(params, callback);
+    break;
+  case 'REBOOT':
+    ec2.rebootInstances(params, callback);
+    break;
+  case 'MONITOR':
+    ec2.monitorInstances(params, callback);
+    break;
+  case 'UNMONITOR':
+    ec2.unmonitorInstances(params, callback);
+    break;
+  default:
+    console.log('Command not recognized');
 }

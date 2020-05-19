@@ -5,7 +5,11 @@ AWS.config.apiVersions = { ec2: '2016-11-15' };
 
 const ec2 = new AWS.EC2();
 
-ec2.describeInstances((err, data) => {
+const params = {
+  InstanceIds: [process.argv[3]],
+};
+
+ec2.describeInstances(params, (err, data) => {
   if (err) { console.log('Error', err.stack); }
   else { console.log('Success', JSON.stringify(data)); }
 });
