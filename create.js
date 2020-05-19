@@ -16,7 +16,6 @@ const instanceParams = {
   InstanceType: 't2.nano',
   MinCount: 1,
   MaxCount: 1,
-  SubnetId: ''
 };
 ec2.runInstances(instanceParams, (err, data) => {
   if (err) {
