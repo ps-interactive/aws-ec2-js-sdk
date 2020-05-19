@@ -8,8 +8,8 @@ const ec2 = new AWS.EC2();
 const params = { InstanceIds: [process.argv[3]] };
 const command = process.argv[2].toUpperCase()
 const process = (err, data) => {
-  if (err) { console.log('Error', err.message); }
-  else if (data) { console.log('Success', JSON.stringify(data)); }
+  if (err) { console.log(`Error: ${err.message}`); }
+  else if (data) { console.log(`Success: ${JSON.stringify(data)}`); }
 }
 
 switch (command) {
@@ -28,7 +28,7 @@ switch (command) {
         console.error(err, err.stack);
       } else {
         const instanceId = data.Instances[0].InstanceId;
-        console.log('Instance Created. InstanceId: ', instanceId);
+        console.log(`Instance Created. InstanceId: ${instanceId}`);
         const tagParams = {
           Resources: [instanceId],
           Tags: [{ Key: 'Name', Value: 'ec2-js-sdk-instance' }]
