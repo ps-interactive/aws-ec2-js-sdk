@@ -1,4 +1,7 @@
-const AWS = require('aws-sdk');
+const command = process.argv[2].toUpperCase()
+const process = (err, data) => {
+  if (err) { console.log(`Error: ${err.message}`); }
+  else if (data) { console.log(`Success: ${JSON.stringify(data)}`); }
+}
 
-AWS.config.region = 'us-west-2';
-AWS.config.apiVersions = { ec2: '2016-11-15' };
+
