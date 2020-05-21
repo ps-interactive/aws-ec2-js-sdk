@@ -16,6 +16,4 @@ jspm_packages/
 # Optional npm cache directory
 .npm
 
-# Terraform
-.terraform/
-terraform.*
+.DS_Store
