@@ -14,7 +14,7 @@ switch (command) {
   case 'key':
     const keyParams = { KeyName: 'ec2-js-sdk-key-pair' };
     if(keyExists(keyParams.KeyName)){
-      console.log('A Key Pair already exists.')
+      console.log('A Key Pair already exists.');
     } else {
       ec2.createKeyPair(keyParams, (err, data) => {
         if (err) { console.log(`Error: ${err.message}`); }
@@ -25,6 +25,6 @@ switch (command) {
     }
     break;
   default:
-    console.error('Not a valid command!')
+    console.error('Not a valid command!');
     break;
 }
