@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { command, message, keyExits } = require('./helpers')
+const { command, message, keyExists } = require('./helpers')
 
 /****************
 AWS Configuration
