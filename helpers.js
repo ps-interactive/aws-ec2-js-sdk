@@ -15,10 +15,14 @@ const message = (err, data) => {
   else if (data) { console.log(`Success: ${JSON.stringify(data)}`); }
 };
 
-async function keyExists(name){
+const getKey = async name => {
   let data = await ec2.describeKeyPairs().promise();
   let result = _.filter(data.KeyPairs, { KeyName: name })
   return result.length == 1;
 }
 
-module.exports = { command, message, keyExists }
+const keyExists = async (name, func) => !await getKey(name) ? func() : console.log("A key exists with that name.");
+const ensureKey = async (name, func) => await getKey(name) ? func() : console.log("A key doesn't exists with that name.");
+
+
+module.exports = { command, message, keyExists, ensureKey }
