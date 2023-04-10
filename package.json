@@ -4,7 +4,7 @@
   "description": "Lab Resources for EC2 JavaScript SDK",
   "main": "ec2.js",
   "dependencies": {
-    "aws-sdk": "^2.675.0",
+    "aws-sdk": "^2.1354.0",
     "lodash": "^4.17.15",
     "minimist": "^1.2.5"
   },
